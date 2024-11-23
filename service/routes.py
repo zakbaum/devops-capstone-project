@@ -51,7 +51,7 @@ def create_accounts():
     account.create()
     message = account.serialize()
     # Uncomment once get_accounts has been implemented
-    # location_url = url_for("get_accounts", account_id=account.id, _external=True)
+    location_url = url_for("get_accounts", account_id=account.id, _external=True)
     location_url = "/"  # Remove once get_accounts has been implemented
     return make_response(
         jsonify(message), status.HTTP_201_CREATED, {"Location": location_url}
@@ -64,11 +64,11 @@ def create_accounts():
 # ... place you code here to LIST accounts ...
 
 # ... place you code here to READ an account ...
-    ######################################################################
-    # READ AN ACCOUNT
-    ######################################################################
-    @app.route("/accounts/<int:account_id>", methods=["GET"])
-    def get_accounts(account_id):
+######################################################################
+# READ AN ACCOUNT
+######################################################################
+@app.route("/accounts/<int:account_id>", methods=["GET"])
+def get_accounts(account_id):
         """
         Reads an Account
         This endpoint will read an Account based the account_id that is requested
@@ -81,10 +81,10 @@ def create_accounts():
 
         return account.serialize(), status.HTTP_200_OK
    
-    def test_get_account_not_found(self):
-        """It should not Read an Account that is not found"""
-        resp = self.client.get(f"{BASE_URL}/0")
-        self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
+def test_get_account_not_found(self):
+    """It should not Read an Account that is not found"""
+    resp = self.client.get(f"{BASE_URL}/0")
+    self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
 
 ######################################################################
 # UPDATE AN EXISTING ACCOUNT
