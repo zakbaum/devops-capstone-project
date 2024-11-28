@@ -169,7 +169,7 @@ class TestAccountService(TestCase):
 
     def test_update_account_not_found(self):
         """It should not Update an Account that is not found"""
-        # Assert account not found 
+        # Assert account not found
         resp = self.client.put(f"{BASE_URL}/0", json={"name": "Something Not Known"})
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
 
