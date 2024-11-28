@@ -37,20 +37,6 @@ spec:
       runAfter:
         - init
 
-    - name: lint
-      workspaces:
-        - name: source
-          workspace: pipeline-workspace          
-      taskRef:
-        name: flake8
-      params:
-      - name: image
-        value: "python:3.9-slim"
-      - name: args
-        value: "--count --max-complexity=10 --max-line-length=127 --statistics"
-      runAfter:
-        - clone
-
     - name: tests
       workspaces:
         - name: source
@@ -62,5 +48,19 @@ spec:
         value: "sqlite:///test.db"
       - name: args
         value: "-v --with-spec --spec-color"
+      runAfter:
+        - clone
+        
+    - name: lint
+      workspaces:
+        - name: source
+          workspace: pipeline-workspace
+      taskRef:
+        name: flake8
+      params:
+      - name: image
+        value: "python:3.9-slim"
+      - name: args
+        value: ["--count","--max-complexity=10","--max-line-length=127","--statistics"]
       runAfter:
         - clone
